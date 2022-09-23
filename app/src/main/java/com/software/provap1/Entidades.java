@@ -1,6 +1,7 @@
 package com.software.provap1.entidades;
 
 public class Abastecimento {
+
     private Float quilometragemAtual;
     private Float quantidadeAbastecida;
     private String data;
@@ -41,4 +42,5 @@ public class Abastecimento {
     public void setValor(Float valor) {
         this.valor = valor;
     }
+
 }
