@@ -1,4 +1,4 @@
-package com.software.provap1.entidades;
+package com.software.Provap1.entidades;
 
 public class Abastecimento {
     private Integer id;

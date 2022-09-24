@@ -1,4 +1,4 @@
-package com.software.provap1;
+package com.software.Provap1;
 
 import org.junit.Test;
 
