@@ -1,6 +1,6 @@
 package com.software.provap1.entidades;
 
-public class Abastecimento {
+public class abastecimento {
     private Integer id;
     private Float quilometragemAtual;
     private Float quantidadeAbastecida;
