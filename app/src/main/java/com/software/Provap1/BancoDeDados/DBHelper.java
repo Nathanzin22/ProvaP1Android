@@ -1,4 +1,4 @@
-package com.software.Provap1.bancoDados;
+package com.software.Provap1.BancoDeDados;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

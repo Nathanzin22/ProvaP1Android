@@ -1,10 +1,10 @@
-package com.software.Provap1.bancoDados;
+package com.software.Provap1.BancoDeDados;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.software.provap1.entidades.Abastecimento;
+import com.software.Provap1.Entidades.Abastecimento;
 
 import java.util.List;
 
@@ -17,14 +17,14 @@ public class AbastecimentoDB {
         this.db = db;
     }
 
-    public void inserir(Abastecimento abastecimento) {
+    public void inserir(Abastecimento Abastecimento) {
         conexao = db.getWritableDatabase();
 
         ContentValues valores = new ContentValues();
-        valores.put("quilometragemAtual", abastecimento.getQuilometragemAtual());
-        valores.put("quantidadeAbastecida", abastecimento.getQuantidadeAbastecida());
-        valores.put("data", abastecimento.getData());
-        valores.put("valor", abastecimento.getValor());
+        valores.put("quilometragemAtual", Abastecimento.getQuilometragemAtual());
+        valores.put("quantidadeAbastecida", Abastecimento.getQuantidadeAbastecida());
+        valores.put("data", Abastecimento.getData());
+        valores.put("valor", Abastecimento.getValor());
 
         conexao.insertOrThrow("listaAbastecimento", null, valores);
 
