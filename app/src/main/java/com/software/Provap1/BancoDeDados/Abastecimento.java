@@ -1,49 +1,63 @@
-package com.software.Provap1.entidades;
+package com.software.provap1.bancoDados;
 
-public class Abastecimento {
-    private Integer id;
-    private Float quilometragemAtual;
-    private Float quantidadeAbastecida;
-    private String data;
-    private Float valor;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
-    public Integer getId() {
-        return id;
+import com.software.provap1.entidades.Abastecimento;
+
+import java.util.List;
+
+public class AbastecimentoDB {
+
+    private DBHelper db;
+    private SQLiteDatabase conexao;
+
+    public AbastecimentoDB(DBHelper db) {
+        this.db = db;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void inserir(Abastecimento abastecimento) {
+        conexao = db.getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put("quilometragemAtual", abastecimento.getQuilometragemAtual());
+        valores.put("quantidadeAbastecida", abastecimento.getQuantidadeAbastecida());
+        valores.put("data", abastecimento.getData());
+        valores.put("valor", abastecimento.getValor());
+
+        conexao.insertOrThrow("listaAbastecimento", null, valores);
+
+        conexao.close();
     }
 
-    public Float getQuilometragemAtual() {
-        return quilometragemAtual;
+    public void remover(Integer id) {
+        conexao = db.getWritableDatabase();
+
+        conexao.delete("listaAbastecimento", "id=?", new String[]{id + ""});
+
+        conexao.close();
     }
 
-    public void setQuilometragemAtual(Float quilometragemAtual) {
-        this.quilometragemAtual = quilometragemAtual;
-    }
+    public void listar(List listaAbastecimento) {
+        listaAbastecimento.clear();
+        conexao = db.getReadableDatabase();
 
-    public Float getQuantidadeAbastecida() {
-        return quantidadeAbastecida;
-    }
+        String colunas[] = {"id", "quilometragemAtual", "quantidadeAbastecida", "data", "valor"};
+        Cursor query = conexao.query("listaAbastecimento", colunas, null, null, null, null, "quilometragemAtual");
 
-    public void setQuantidadeAbastecida(Float quantidadeAbastecida) {
-        this.quantidadeAbastecida = quantidadeAbastecida;
-    }
+        while (query.moveToNext()) {
+            Abastecimento abastecimento = new Abastecimento();
 
-    public String getData() {
-        return data;
-    }
+            abastecimento.setId(Integer.parseInt(query.getString(0)));
+            abastecimento.setQuilometragemAtual(query.getFloat(1));
+            abastecimento.setQuantidadeAbastecida(query.getFloat(2));
+            abastecimento.setData(query.getString(3));
+            abastecimento.setValor(query.getFloat(4));
 
-    public void setData(String data) {
-        this.data = data;
-    }
+            listaAbastecimento.add(abastecimento);
+        }
 
-    public Float getValor() {
-        return valor;
-    }
-
-    public void setValor(Float valor) {
-        this.valor = valor;
+        conexao.close();
     }
 }
